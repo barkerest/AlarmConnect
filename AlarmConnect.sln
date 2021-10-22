@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlarmConnect", "AlarmConnect\AlarmConnect.csproj", "{8CCBC209-D16B-4F29-B3B3-08D1EFB7D787}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{F567CED2-9FBB-4356-B010-D219BDC3B704}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8CCBC209-D16B-4F29-B3B3-08D1EFB7D787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCBC209-D16B-4F29-B3B3-08D1EFB7D787}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCBC209-D16B-4F29-B3B3-08D1EFB7D787}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCBC209-D16B-4F29-B3B3-08D1EFB7D787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F567CED2-9FBB-4356-B010-D219BDC3B704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F567CED2-9FBB-4356-B010-D219BDC3B704}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F567CED2-9FBB-4356-B010-D219BDC3B704}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F567CED2-9FBB-4356-B010-D219BDC3B704}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
