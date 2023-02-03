@@ -232,7 +232,11 @@ namespace AlarmConnect
                     }
                 }
 
-                Thread.Sleep(100);
+                for (var i = 0; i < 100; i++)
+                {
+                    if (session._disposing) return;
+                    Thread.Sleep(1);
+                }
             }
         }
 
@@ -514,12 +518,13 @@ namespace AlarmConnect
         public void Dispose()
         {
             _disposing = true;
-            _keepAliveThread.Interrupt();
+            
             while (_keepAliveThread?.IsAlive ?? false)
                 Thread.Sleep(0);
-
-            _client?.Dispose();
-            _handler?.Dispose();
+            _keepAliveThread = null;
+            
+            _client.Dispose();
+            _handler.Dispose();
         }
     }
 }
