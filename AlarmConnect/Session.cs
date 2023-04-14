@@ -457,7 +457,7 @@ namespace AlarmConnect
         }
         
         private IDataObject GetTwoFactorAuthenticationSettings()
-            => this.ApiGetOneRaw("twoFactorAuthentication/twoFactorAuthentications", _identity, reqMfa: false);
+            => this.ApiGetOneRaw("engines/twoFactorAuthentication/twoFactorAuthentications", _identity, reqMfa: false);
 
         /// <summary>
         /// Determines if the current identity is configured for an authenticator app.
@@ -497,7 +497,7 @@ namespace AlarmConnect
             };
 
             var result = await ((ISession)this).ApiPost(
-                             "twoFactorAuthentication/twoFactorAuthentications",
+                             "engines/twoFactorAuthentication/twoFactorAuthentications",
                              data,
                              _identity,
                              "verifyTwoFactorCode",
