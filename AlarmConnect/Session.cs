@@ -240,10 +240,21 @@ namespace AlarmConnect
             }
         }
 
+        private string _sourcePath = null;
+        
         private HttpRequestMessage NewJsonRequest(HttpMethod method, string url)
         {
             var ret = new HttpRequestMessage(method, url);
             ret.Headers.Accept.ParseAdd("application/vnd.api+json");
+            ret.Headers.Add("Sec-Fetch-Dest", "empty");
+            ret.Headers.Add("Sec-Fetch-Mode", "cors");
+            ret.Headers.Add("Sec-Fetch-Site", "same-origin");
+
+            if (!string.IsNullOrEmpty(_sourcePath))
+            {
+                ret.Headers.Add("SourcePath", _sourcePath);
+            }
+            
             var key = AjaxRequestUniqueKey?.Value;
 
             if (!string.IsNullOrEmpty(key))
@@ -339,7 +350,7 @@ namespace AlarmConnect
                 }
 
                 var req = NewJsonRequest(HttpMethod.Post, url.ToString());
-
+                
                 if (!(data is null))
                 {
                     req.Content = new StringContent(JsonSerializer.Serialize(data), Encoding.UTF8, "application/json");
@@ -455,6 +466,20 @@ namespace AlarmConnect
                 return null;
             }
         }
+
+        private T WithSourcePath<T>(string sourcePath, Func<T> exec)
+        {
+            var oldSourcePath = _sourcePath;
+            try
+            {
+                _sourcePath = sourcePath;
+                return exec();
+            }
+            finally
+            {
+                _sourcePath = oldSourcePath;
+            }
+        }
         
         private IDataObject GetTwoFactorAuthenticationSettings()
             => this.ApiGetOneRaw("engines/twoFactorAuthentication/twoFactorAuthentications", _identity, reqMfa: false);
@@ -475,7 +500,11 @@ namespace AlarmConnect
             }
             else
             {
-                _supportAuthApp = mfaData.GetInt32Attribute("twoFactorType") == 1;
+                // 2023-04-18: Alarm.com altering the way they provide MFA details.
+                // The old attribute:
+                // _supportAuthApp = mfaData.GetInt32Attribute("twoFactorType") == 1;
+                // Now they allow you to specify multiple options: 1 = app, 2 = sms, 4 = email
+                _supportAuthApp = (mfaData.GetInt32Attribute("enabledTwoFactorTypes") & 1) == 1;
             }
 
             return _supportAuthApp.Value;
